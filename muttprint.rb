@@ -1,17 +1,15 @@
-require "formula"
-
 class Muttprint < Formula
+  desc "Hacked up version of muttprint"
   homepage "http://muttprint.sourceforge.net/"
-  url "https://downloads.sourceforge.net/project/muttprint/muttprint/muttprint-0.72d/muttprint-0.72d.tar.gz"
-  sha1 "532a1c7ed019b0b50c78caf7eeb17f5cd34d3d1e"
+  url "https://gist.github.com/barn/d3c6411ed2b97e276c07fdf141bf76e4.git", revision: "777abdad3ab38813891bd7676b094718256247eed87a59cb91c087046b8bf0ef", branch: "main"
+  license "GPL-2.0-only"
+
+  depends_on "libiconv"
+  depends_on "recode"
 
   def install
-    system "make", "-B", "prefix=#{prefix}", "docdir=#{share}/doc/packages/", "install"
+    # https://gist.github.com/defunkt/318247#gistcomment-3760018
+    bin.install "muttprint.pl" => "muttprint"
   end
 
-  test do
-    # The installed folder is not in the path, so use the entire path to any
-    # executables being tested: `system "#{bin}/program", "do", "something"`.
-    system "muttprint"
-  end
 end
